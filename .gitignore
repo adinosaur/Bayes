@@ -27,5 +27,8 @@
 *.out
 *.app
 
-# Gedit tmp file
+# Gedit tmp files
 *~
+
+# coredump files
+*core
