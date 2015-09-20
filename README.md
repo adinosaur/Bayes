@@ -48,4 +48,5 @@ c++11实现了文本分类的基本方法，使用朴素贝叶斯文本分类算
     auto result = t.bayes(d6);
 ```
 
-
+# 分类效果
+ ![image](/home/dinosaur/Pictures/2015-09-20-21:49:51.png)
