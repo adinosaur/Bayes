@@ -5,85 +5,50 @@
 #ifndef BAYES_DOCUMENT_H
 #define BAYES_DOCUMENT_H
 
-#include "Item.h"
-#include "Dictionary.h"
-
-#include <assert.h>
-
-#include <vector>
+#include <string>
 #include <ostream>
+#include <unordered_map>
+
+class Dictionary;
+class Items;
 
 //
-// Document
+// Document类
+// 该类的主要功能是将一个文本string抽象建模为一个N维的向量Item
+// 默认的建模方法是Bag Of Word（词袋模型）
 //
 class Document
 {
     public:
-        Document(): 
-            _dimension(0),
-            _items(_dimension)
-        {
-        }
-        
-        Document(std::vector<int>&& item):
-            _dimension(item.size()),
-            _items(std::move(item)) 
-        {
-        }
-        
-        Document(std::initializer_list<int>&& lst):
-            _dimension(lst.size())
-        {
-            for (auto&& item : lst)
-                _items.push_back(std::move(item));
-        }
-        
-        template <typename K>
-        std::vector<Item<K,int>> translate(Dictionary<K>* dict)
-        {
-            assert(dict != nullptr);
-            
-            std::vector<Item<K,int>> result;
-            
-            for (int i = 0; i != _items.size(); ++i)
-                result.push_back(std::move(Item<K, int>(dict->_id_to_word[i], _items[i])));
-            return std::move(result);
-        }
+        //
+        // 构造函数
+        //
+        Document(const std::string&);
         
         //
-        // get items
+        // 静态方法，设置Document类的字典
         //
-        const std::vector<int>& items()
-        {
-            return _items;
-        }
+        static void set_dictionary(Dictionary&);
         
         //
-        // get num of item 
+        // 虚函数，子类通过override该函数实现自定义建模方法
         //
-        int length()
-        {
-            return _dimension;
-        }
+        virtual Items model(const std::string&);
         
         //
-        // print items of a document
+        // 返回经过建模的抽象向量
         //
-        void print(std::ostream& os)
-        {
-            os << "[ ";
-            for (std::vector<int>::size_type i = 0; 
-                i != _items.size(); ++i)
-            {
-                os << "(" << i << ", ";
-                os << _items[i] << "), ";
-            }
-            os << " ]" << std::endl;
-        }
-    private:
-        int _dimension;
-        std::vector<int> _items;
+        Items items();
+        
+        //
+        // 打印Items向量
+        //
+        void print(std::ostream&);
 
+    private:
+        // Items向量
+        Items _items;
+        static Dictionary* _p_dictionary;
 };
 
 #endif

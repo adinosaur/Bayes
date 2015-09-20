@@ -7,36 +7,29 @@
 
 #include <unordered_map>
 #include <vector>
+#include <string>
 
-template <typename K>
+// 
+// Dictionary类
+// 该类维护从单词ID到单词的双向映射
+// 
 class Dictionary
 {
     public:
         Dictionary() = default;
-        
-        explicit Dictionary(const std::vector<K>& dict)
-        {
-            for (typename std::vector<K>::size_type i = 0; 
-                i != dict.size(); ++i)
-            {
-                _word_to_id[dict[i]] = i;
-                _id_to_word[i] = dict[i];
-            }
-        }
-        
-        Dictionary(std::initializer_list<K> lst)
-        {
-            int i = 0;
-            for (auto item : lst)
-            {
-                _word_to_id[item] = i;
-                _id_to_word[i] = item;
-                i++;
-            }
-        }
+        explicit Dictionary(const std::vector<std::string>&);
+        Dictionary(std::initializer_list<std::string>);
 
-        std::unordered_map<K, int> _word_to_id;
-        std::unordered_map<int, K> _id_to_word;
+        // 
+        // 返回字典的维度
+        // 
+        int size();
+
+        // 单词->单词ID映射
+        std::unordered_map<std::string, int> _word_to_id;
+        
+        // 单词ID>单词映射
+        std::unordered_map<int, std::string> _id_to_word;
 };
 
 #endif

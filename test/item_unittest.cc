@@ -1,12 +1,12 @@
-#include "../include/Item.h"
+#include "../include/bayes/Items.h"
 #include "gtest/gtest.h"
 #include <string>
 
 using namespace std;
 
-TEST(BAYES_ITEM, ITEM)
+TEST(BAYES_ITEMS, ITEM)
 {
-    Item<int, string> item1(0, "item_test");
+    Item item1(vector<int>({0, 1, 2, 3, 4, 5}));
     
     EXPECT_EQ(item1.key, 0);
     EXPECT_EQ(item1.value, "item_test");
