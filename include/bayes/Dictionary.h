@@ -16,7 +16,7 @@
 class Dictionary
 {
     public:
-        Dictionary() = default;
+        //Dictionary() = default;
         explicit Dictionary(const std::vector<std::string>&);
         Dictionary(std::initializer_list<std::string>);
 

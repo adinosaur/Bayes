@@ -1,3 +1,7 @@
+//
+// Date: 2015/09/21
+//
+
 #include "../include/bayes/Items.h"
 #include "gtest/gtest.h"
 #include <string>

@@ -5,12 +5,14 @@
 #ifndef BAYES_DOCUMENT_H
 #define BAYES_DOCUMENT_H
 
+#include "Items.h"
+
 #include <string>
 #include <ostream>
 #include <unordered_map>
 
 class Dictionary;
-class Items;
+//class Items;
 
 //
 // Document类
