@@ -26,6 +26,9 @@ items_unittest: items
 document_unittest: document items dictionary
 	$(CC) --std=c++11 -Wall -g ./test/document_unittest.cc ./build/dictionary.o ./build/document.o ./build/item.o -o ./build/document.unittest.out -lgtest -lpthread
 
+trainingData_unittest:
+	$(CC) --std=c++11 -Wall -g ./test/trainingData_unittest.cc ./include/tools/TrainingData.cc -o ./build/trainingData.unittest.out -lgtest -lpthread
+
 clean:
 	rm ./build/*
 
