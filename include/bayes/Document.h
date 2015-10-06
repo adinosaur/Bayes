@@ -7,50 +7,74 @@
 
 #include "Items.h"
 
-#include <string>
+#include <assert.h>
+
+#include <functional>
 #include <ostream>
 #include <unordered_map>
 
-class Dictionary;
-//class Items;
+class Items;
 
 //
 // Document类
-// 该类的主要功能是将一个文本string抽象建模为一个N维的向量Item
-// 默认的建模方法是Bag Of Word（词袋模型）
+// 该类的主要功能是将一个Document抽象建模为一个N维的向量Item
 //
+template <typename T>
 class Document
 {
     public:
+        typedef std::function<Items(T)> ModelingType;
+        
         //
         // 构造函数
         //
-        Document(const std::string&);
-        
-        //
-        // 静态方法，设置Document类的字典
-        //
-        static void set_dictionary(Dictionary&);
-        
-        //
-        // 虚函数，子类通过override该函数实现自定义建模方法
-        //
-        virtual Items modeling(const std::string&);
+        Document(const T& raw):
+            _raw(raw),
+            _items_flag(false),
+            _items()
+        {
+        }
         
         //
         // 返回经过建模的抽象向量,被Training对象调用
         //
-        Items items();
+        Items items()
+        {
+            assert(_modeling);
+            
+            if (!_items_flag)
+                _items = _modeling(_raw);
+            return _items;
+        }
         
         //
         // 打印Items向量
         //
-        void print(std::ostream&);
+        void print(std::ostream& os)
+        {
+            os << "[";
+            for (int i = 0; i != _items.size(); ++i)
+                os << "(" << i << "," << _items[i] << "),";
+            os << "]" << std::endl;
+        }
+        
+        //
+        // 静态方法，设置建模方法
+        //
+        static void set_modeling(ModelingType modeling)
+        {
+            _modeling = modeling;
+        }
 
     private:
-        // Items向量
+        T _raw;
+        bool _items_flag;
         Items _items;
-        static Dictionary* _p_dictionary;
+        
+        static ModelingType _modeling;
 };
+
+template <typename T>
+typename Document<T>::ModelingType Document<T>::_modeling;
 
 #endif
