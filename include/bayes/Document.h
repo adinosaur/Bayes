@@ -35,10 +35,10 @@ class Document
         //
         // 虚函数，子类通过override该函数实现自定义建模方法
         //
-        virtual Items model(const std::string&);
+        virtual Items modeling(const std::string&);
         
         //
-        // 返回经过建模的抽象向量
+        // 返回经过建模的抽象向量,被Training对象调用
         //
         Items items();
         

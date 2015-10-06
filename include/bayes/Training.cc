@@ -33,7 +33,18 @@ void Training::add_document(Document& d, int category)
     _documents_to_category.push_back(category);
 }
 
-const Training::DocCategoryDistributionType&
+
+void Training::training()
+{
+    // 训练得出 Document-类别 概率分布
+    document_category_distribution();
+    
+    // 训练得出 Item-类别 概率分布
+    item_category_distribution();
+}
+
+
+const vector<int>&
 Training::document_category_distribution()
 {
     if (!_doc_category_distribution_done)
@@ -42,7 +53,7 @@ Training::document_category_distribution()
     return _doc_category_distribution;
 }
 
-const Training::ItemCategoryDistributionType&
+const vector<vector<int>>&
 Training::item_category_distribution()
 {
     if (!_item_category_distribution_done)
@@ -96,6 +107,7 @@ vector<double> Training::bayes(Document& d)
     
     return result;
 }
+
 
 void Training::_document_category_probability()
 {

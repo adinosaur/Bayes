@@ -33,12 +33,17 @@ c++11实现了文本分类的基本方法，使用朴素贝叶斯文本分类算
     t.add_document(d5, 2);
 ```
 
-###4. 训练
+###4. 训练得出 Document-类别 概率分布
 ```c++
-    t.training();
+    auto doc_cate_d = t.document_category_distribution();
 ```
 
-###5. 朴素贝叶斯分类
+###5. 训练得出 Item-类别 概率分布
+```c++
+    auto item_cate_d = t.item_category_distribution();
+```
+
+###6. 朴素贝叶斯分类
 ```c++
     auto result = t.bayes(d6);
 ```

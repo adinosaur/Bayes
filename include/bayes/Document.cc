@@ -18,7 +18,7 @@ Dictionary* Document::_p_dictionary = nullptr;
 
 Document::Document(const string& content)
 {
-    _items = model(content);
+    _items = modeling(content);
 }
 
 // Document类的静态方法
@@ -28,7 +28,7 @@ void Document::set_dictionary(Dictionary& dict)
 }
 
 // 简单词袋模型
-Items Document::model(const string& text)
+Items Document::modeling(const string& text)
 {
     assert(_p_dictionary != nullptr);
     vector<int> vec(_p_dictionary->size(), 0);

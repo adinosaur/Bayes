@@ -3,7 +3,8 @@
 CC = clang++-3.6
 
 all: dictionary document items Training 
-	$(CC) --std=c++11 -Wall -g ./build/dictionary.o ./build/document.o ./build/item.o ./build/training.o ./src/main.cc -o ./build/main.out
+	$(CC) --std=c++11 -Wall -g ./build/dictionary.o ./build/document.o ./build/item.o ./build/training.o ./src/bayes1.cc -o ./build/bayes1.out
+	$(CC) --std=c++11 -Wall -g ./build/dictionary.o ./build/document.o ./build/item.o ./build/training.o ./src/bayes2.cc -o ./build/bayes2.out
 
 dictionary:
 	$(CC) --std=c++11 -Wall -g -c ./include/bayes/Dictionary.cc -o ./build/dictionary.o

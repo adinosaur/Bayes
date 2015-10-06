@@ -15,8 +15,8 @@ class Document;
 class Training
 {
     public:
-        typedef std::vector<int> DocCategoryDistributionType;
-        typedef std::vector<std::vector<int>> ItemCategoryDistributionType;
+        //typedef std::vector<int> DocCategoryDistributionType;
+        //typedef std::vector<std::vector<int>> ItemCategoryDistributionType;
         
         // 
         // 构造函数
@@ -30,15 +30,20 @@ class Training
         void add_document(Document&, int);
         
         //
+        // 训练
+        //
+        void training();
+        
+        //
         // 计算 Document-类别 概率分布
         //
-        const DocCategoryDistributionType&
+        const std::vector<int>&
         document_category_distribution();
         
         //
         // 计算 item-类别 概率分布
         //
-        const ItemCategoryDistributionType&
+        const std::vector<std::vector<int>>&
         item_category_distribution();
         
         //
@@ -73,8 +78,8 @@ class Training
         // 保存每一个类别的所有item.value之和
         std::vector<int> _category_total;
         
-        DocCategoryDistributionType _doc_category_distribution;
-        ItemCategoryDistributionType _item_category_distribution;
+        std::vector<int> _doc_category_distribution;
+        std::vector<std::vector<int>> _item_category_distribution;
 };
 
 #endif
